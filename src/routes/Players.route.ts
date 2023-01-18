@@ -10,11 +10,30 @@ playersRoute.get('/players', (req: Request, res: Response, next: NextFunction) =
 
 })
 
-playersRoute.get('/players/:uuid',(req: Request, res: Response, next: NextFunction) => 
+playersRoute.get('/players/:uuid',(req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
 {
     const id = req.params.uuid;
     res.status(StatusCodes.OK).send({id});
 
+})
+
+playersRoute.post('/players', (req: Request, res: Response, next: NextFunction) => 
+{
+    const newPlayer = req.body
+    res.status(StatusCodes.CREATED).send(newPlayer);
+})
+
+playersRoute.put('/players/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
+{
+    const id = req.params.uuid;
+    const modifiedUser = req.body;
+    modifiedUser.uuid = id;
+    res.status(StatusCodes.OK).send(modifiedUser);
+})
+
+playersRoute.delete('/players/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+{
+    res.sendStatus(StatusCodes.OK);
 })
 
 export default playersRoute 
