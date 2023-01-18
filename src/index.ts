@@ -3,6 +3,7 @@ import playersRoute from './routes/Players.route';
 import statusRoute from './routes/Status.route';
 
 const app = express();
+
 //configuração da aplicação
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

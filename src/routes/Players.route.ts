@@ -1,12 +1,16 @@
 import { Router, Request, Response, NextFunction } from "express";
 import {StatusCodes} from 'http-status-codes';
 
+const connection = require('../models/database');
 const playersRoute = Router();
 
-playersRoute.get('/players', (req: Request, res: Response, next: NextFunction) => 
+playersRoute.get('/players', async (req: Request, res: Response, next: NextFunction) => 
 {
-    const players = [{ name: 'nome' }];
-    res.status(200).send(players);
+    const query = 'SELECT * FROM TblPlayer;';
+    const [playersList] = await connection.execute(query);
+    console.log("lista: ",playersList);
+    const playersListReturn = JSON.parse(playersList);
+    res.status(200).send(playersListReturn);
 
 })
 
@@ -17,10 +21,15 @@ playersRoute.get('/players/:uuid',(req: Request<{uuid: number}>, res: Response, 
 
 })
 
-playersRoute.post('/players', (req: Request, res: Response, next: NextFunction) => 
+playersRoute.post('/players/add', async (req: Request, res: Response, next: NextFunction) => 
 {
     const newPlayer = req.body
-    res.status(StatusCodes.CREATED).send(newPlayer);
+    const query = `INSERT INTO TblPlayer (idTeam, namePlayer, number, position, draft, nationality) 
+    VALUES ('${newPlayer.idTeam}', '${newPlayer.namePlayer}', '${newPlayer.number}', ${newPlayer.position}, 
+    ${newPlayer.draft}, ${newPlayer.nationality});`;
+    
+    const createdPlayer = await connection.execute(query);
+    res.status(StatusCodes.OK).send(createdPlayer);
 })
 
 playersRoute.put('/players/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
