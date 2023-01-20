@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('./database');
 
-const Arena = database.define('TblArena',
+const TeamModel = database.define('TblTeam',
 {
     idTeam: 
     {
@@ -14,9 +14,7 @@ const Arena = database.define('TblArena',
     idArena: 
     {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         allowNull: false,
-        primaryKey: true
     },
 
     nameTeam:
@@ -43,3 +41,5 @@ const Arena = database.define('TblArena',
         allowNull: false
     }
 });
+
+module.exports = TeamModel;

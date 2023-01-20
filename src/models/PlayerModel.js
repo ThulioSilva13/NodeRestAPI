@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('./database');
 
-const PLayer = database.define('TblPlayer',
+const PLayerModel = database.define('TblPlayer',
 {
     idPlayer: 
     {
@@ -14,7 +14,6 @@ const PLayer = database.define('TblPlayer',
     idTeam: 
     {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         allowNull: false,
         
     },
@@ -49,3 +48,5 @@ const PLayer = database.define('TblPlayer',
         allowNull: false
     },
 });
+
+module.exports = PLayerModel;

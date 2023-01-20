@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('./database');
 
-const Arena = database.define('TblArena',
+const ArenaModel = database.define('TblArena',
 {
     idArena: 
     {
@@ -33,11 +33,7 @@ const Arena = database.define('TblArena',
     {
         type: Sequelize.DATE,
         allowNull: false
-    },
-
-    closingDate:
-    {
-        type: Sequelize.DATE,
-        allowNull: true
-    },
+    }
 });
+
+module.exports = ArenaModel;
