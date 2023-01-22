@@ -1,8 +1,8 @@
 import express, {Request, Response, NextFunction} from 'express';
-import arenasRoute from './routes/Arenas.route';
-import playersRoute from './routes/Players.route';
-import statusRoute from './routes/Status.route';
-import teamsRoute from './routes/Teams.route';
+import arenaController from './controller/ArenaController';
+import playerController from './controller/PlayerController';
+import statusRoute from './controller/Status.route';
+import teamController from './controller/TeamController';
 
 const app = express();
 
@@ -12,9 +12,9 @@ app.use(express.urlencoded({extended: true}));
 
 //configuração de rotas
 app.use(statusRoute);
-app.use(playersRoute);
-app.use(teamsRoute);
-app.use(arenasRoute);
+app.use(playerController);
+app.use(teamController);
+app.use(arenaController);
 
 
 
