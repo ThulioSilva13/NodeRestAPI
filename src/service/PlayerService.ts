@@ -1,6 +1,7 @@
 const PlayerModel = require('../models/PlayerModel');
+const Player = require('../interface/PlayerInterface');
 
-async function getAllPlayers (playerDTO: any)
+async function getAllPlayers()
 {
     const listPlayers = await PlayerModel.findAll();
     return listPlayers;
@@ -14,7 +15,7 @@ async function getPlayerById(idPlayer: number)
 
 }
 
-async function addPLayer(playerDTO: any)
+async function addPLayer(playerDTO: typeof Player)
 {
     const newPlayer = await PlayerModel.create
     ({
@@ -28,7 +29,7 @@ async function addPLayer(playerDTO: any)
     return newPlayer;
 }
 
-async function updatePlayer(playerDTO: any)
+async function updatePlayer(playerDTO: typeof Player)
 {
     const oldPlayer = await PlayerModel.findByPk(playerDTO.idPlayer);
     oldPlayer.namePlayer = playerDTO.namePlayer;
@@ -41,7 +42,7 @@ async function updatePlayer(playerDTO: any)
 async function deletePlayer(idPlayer: number) 
 {
     const deletedPlayer = await PlayerModel.findByPk(idPlayer);
-
+    deletedPlayer.destroy();
 }
 
 module.exports = 

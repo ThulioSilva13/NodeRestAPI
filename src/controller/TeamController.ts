@@ -22,7 +22,7 @@ teamController.get('/teams/getAll', (req: Request, res: Response, next: NextFunc
 
 teamController.get('/teams/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
 {
-    teamService.getTeamById(req.body.uuid)
+    teamService.getTeamById(req.body)
     .then((TeamDTO: typeof Team) =>
     {
         res.status(StatusCodes.OK).send(TeamDTO);
@@ -36,7 +36,7 @@ teamController.get('/teams/get/:uuid', (req: Request<{uuid: number}>, res: Respo
 
 teamController.post('/teams/add', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) => 
 {
-    teamService.addTeam(req.body.team)
+    teamService.addTeam(req.body)
     .then((TeamDTO: typeof Team) =>
     {
         res.status(StatusCodes.OK).send(TeamDTO);
@@ -50,7 +50,7 @@ teamController.post('/teams/add', (req: Request<{team: typeof Team}>, res: Respo
 
 teamController.put('/teams/update/:uuid', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) =>
 {
-    teamService.updateTeam(req.body.team)
+    teamService.updateTeam(req.body)
     .then((TeamDTO: typeof Team) => 
     {
         res.status(StatusCodes.OK).send(TeamDTO);
@@ -64,7 +64,7 @@ teamController.put('/teams/update/:uuid', (req: Request<{team: typeof Team}>, re
 
 teamController.delete('/teams/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
-    teamService.deleteTeam(req.body.uuid)
+    teamService.deleteTeam(req.body)
     .then((TeamDTO: typeof Team) =>
     {
         res.status(StatusCodes.OK).send(TeamDTO);

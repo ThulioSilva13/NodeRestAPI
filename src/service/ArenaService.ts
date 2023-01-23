@@ -1,6 +1,7 @@
 const ArenaModel = require('../models/ArenaModel');
+const Arena = require('../interface/ArenaInterface');
 
-async function getAllArenas (arenaDTO: any)
+async function getAllArenas()
 {
     const listArenas = await ArenaModel.findAll();
     return listArenas;
@@ -14,7 +15,7 @@ async function getArenaById(idArena: number)
 
 }
 
-async function addArena(arenaDTO: any)
+async function addArena(arenaDTO: typeof Arena)
 {
     const newArena = await ArenaModel.create
     ({
@@ -26,7 +27,7 @@ async function addArena(arenaDTO: any)
     return newArena;
 }
 
-async function updateArena(arenaDTO: any)
+async function updateArena(arenaDTO: typeof Arena)
 {
     const oldArena = await ArenaModel.findByPk(arenaDTO.idArena);
     oldArena.nameArena = arenaDTO.nameArena;
@@ -39,6 +40,7 @@ async function updateArena(arenaDTO: any)
 async function deleteArena(idArena: number) 
 {
     const deletedArena = await ArenaModel.findByPk(idArena);
+    deletedArena.destroy();
 
 }
 

@@ -1,6 +1,7 @@
 const TeamModel = require('../models/TeamModel');
+const Team = require('../interface/TeamInterface');
 
-async function getAllTeams (teamDTO: any)
+async function getAllTeams()
 {
     const listTeams = await TeamModel.findAll();
     return listTeams;
@@ -14,7 +15,7 @@ async function getTeamById(idTeam: number)
 
 }
 
-async function addTeam(teamDTO: any)
+async function addTeam(teamDTO: typeof Team)
 {
     const newTeam = await TeamModel.create
     ({
@@ -27,7 +28,7 @@ async function addTeam(teamDTO: any)
     return newTeam;
 }
 
-async function updateTeam(teamDTO: any)
+async function updateTeam(teamDTO: typeof Team)
 {
     const oldTeam = await TeamModel.findByPk(teamDTO.idTeam);
     oldTeam.nameTeam = teamDTO.nameTeam;
@@ -40,7 +41,7 @@ async function updateTeam(teamDTO: any)
 async function deleteTeam(idTeam: number) 
 {
     const deletedTeam = await TeamModel.findByPk(idTeam);
-
+    deletedTeam.destroy();
 }
 
 module.exports = 

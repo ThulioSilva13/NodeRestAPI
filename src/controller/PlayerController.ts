@@ -22,7 +22,7 @@ playerController.get('/players/getAll', (req: Request, res: Response, next: Next
 
 playerController.get('/players/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
 {
-    playerService.getPlayerById(req.body.uuid)
+    playerService.getPlayerById(req.body)
     .then((PlayerDTO: typeof Player) =>
     {
         res.status(StatusCodes.OK).send(PlayerDTO);
@@ -36,7 +36,7 @@ playerController.get('/players/get/:uuid', (req: Request<{uuid: number}>, res: R
 
 playerController.post('/players/add', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) => 
 {
-    playerService.addPlayer(req.body.player)
+    playerService.addPlayer(req.body)
     .then((PlayerDTO: typeof Player) =>
     {
         res.status(StatusCodes.OK).send(PlayerDTO);
@@ -50,7 +50,7 @@ playerController.post('/players/add', (req: Request<{player: typeof Player}>, re
 
 playerController.put('/players/update/:uuid', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) =>
 {
-    playerService.updatePlayer(req.body.player)
+    playerService.updatePlayer(req.body)
     .then((PlayerDTO: typeof Player) => 
     {
         res.status(StatusCodes.OK).send(PlayerDTO);
@@ -64,7 +64,7 @@ playerController.put('/players/update/:uuid', (req: Request<{player: typeof Play
 
 playerController.delete('/players/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
-    playerService.deletePlayer(req.body.uuid)
+    playerService.deletePlayer(req.body)
     .then((PlayerDTO: typeof Player) =>
     {
         res.status(StatusCodes.OK).send(PlayerDTO);

@@ -22,7 +22,7 @@ arenaController.get('/arenas/getAll', (req: Request, res: Response, next: NextFu
 
 arenaController.get('/arenas/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
 {
-    arenaService.getArenaById(req.body.uuid)
+    arenaService.getArenaById(req.body)
     .then((ArenaDTO: typeof Arena) =>
     {
         res.status(StatusCodes.OK).send(ArenaDTO);
@@ -36,7 +36,7 @@ arenaController.get('/arenas/get/:uuid', (req: Request<{uuid: number}>, res: Res
 
 arenaController.post('/arenas/add', (req: Request<{arena: typeof Arena}>, res: Response, next: NextFunction) => 
 {
-    arenaService.addArena(req.body.arena)
+    arenaService.addArena(req.body)
     .then((ArenaDTO: typeof Arena) =>
     {
         res.status(StatusCodes.OK).send(ArenaDTO);
@@ -50,7 +50,7 @@ arenaController.post('/arenas/add', (req: Request<{arena: typeof Arena}>, res: R
 
 arenaController.put('/arenas/update/:uuid', (req: Request<{arena: typeof Arena}>, res: Response, next: NextFunction) =>
 {
-    arenaService.updateArena(req.body.arena)
+    arenaService.updateArena(req.body)
     .then((ArenaDTO: typeof Arena) => 
     {
         res.status(StatusCodes.OK).send(ArenaDTO);
@@ -64,7 +64,7 @@ arenaController.put('/arenas/update/:uuid', (req: Request<{arena: typeof Arena}>
 
 arenaController.delete('/arenas/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
-    arenaService.deleteArena(req.body.uuid)
+    arenaService.deleteArena(req.body)
     .then((ArenaDTO: typeof Arena) =>
     {
         res.status(StatusCodes.OK).send(ArenaDTO);
