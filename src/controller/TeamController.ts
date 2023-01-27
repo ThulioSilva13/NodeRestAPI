@@ -8,7 +8,7 @@ const teamController = Router();
 teamController.get('/teams/getAll', (req: Request, res: Response, next: NextFunction) => 
 {
     
-    teamService.getAll()
+    teamService.getAllTeams()
     .then((TeamDTO: typeof Team) => 
     {
         res.status(StatusCodes.OK).send(TeamDTO);
@@ -22,7 +22,7 @@ teamController.get('/teams/getAll', (req: Request, res: Response, next: NextFunc
 
 teamController.get('/teams/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
 {
-    teamService.getTeamById(req.body)
+    teamService.getTeamById(req.params.uuid)
     .then((TeamDTO: typeof Team) =>
     {
         res.status(StatusCodes.OK).send(TeamDTO);
@@ -57,14 +57,14 @@ teamController.put('/teams/update/:uuid', (req: Request<{team: typeof Team}>, re
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível atualizar a team", error);
+        console.log("Não foi possível atualizar o team", error);
     })
     
 })
 
-teamController.delete('/teams/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+teamController.delete('/teams/delete/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
-    teamService.deleteTeam(req.body)
+    teamService.deleteTeam(req.params.uuid)
     .then((TeamDTO: typeof Team) =>
     {
         res.status(StatusCodes.OK).send(TeamDTO);

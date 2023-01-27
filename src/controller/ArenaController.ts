@@ -8,7 +8,7 @@ const arenaController = Router();
 arenaController.get('/arenas/getAll', (req: Request, res: Response, next: NextFunction) => 
 {
     
-    arenaService.getAll()
+    arenaService.getAllArenas()
     .then((ArenaDTO: typeof Arena) => 
     {
         res.status(StatusCodes.OK).send(ArenaDTO);
@@ -22,7 +22,7 @@ arenaController.get('/arenas/getAll', (req: Request, res: Response, next: NextFu
 
 arenaController.get('/arenas/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
 {
-    arenaService.getArenaById(req.body)
+    arenaService.getArenaById(req.params.uuid)
     .then((ArenaDTO: typeof Arena) =>
     {
         res.status(StatusCodes.OK).send(ArenaDTO);
@@ -62,9 +62,9 @@ arenaController.put('/arenas/update/:uuid', (req: Request<{arena: typeof Arena}>
     
 })
 
-arenaController.delete('/arenas/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+arenaController.delete('/arenas/delete/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
-    arenaService.deleteArena(req.body)
+    arenaService.deleteArena(req.params.uuid)
     .then((ArenaDTO: typeof Arena) =>
     {
         res.status(StatusCodes.OK).send(ArenaDTO);

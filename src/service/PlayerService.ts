@@ -24,18 +24,22 @@ async function addPLayer(playerDTO: typeof Player)
         number: playerDTO.location,
         position: playerDTO.position,
         draft: playerDTO.draft,
-        nationality: playerDTO.nationality
+        nationality: playerDTO.nationality,
+        createdAt: new Date(),
+        updatedAt: new Date()
     })
     return newPlayer;
 }
 
 async function updatePlayer(playerDTO: typeof Player)
 {
-    const oldPlayer = await PlayerModel.findByPk(playerDTO.idPlayer);
-    oldPlayer.namePlayer = playerDTO.namePlayer;
-    oldPlayer.number = playerDTO.number;
-    oldPlayer.position = playerDTO.position;
-    oldPlayer.nationality = playerDTO.nationality
+    const oldPlayer = await PlayerModel.update(playerDTO,
+        {
+            where: 
+            {
+                idPlayer: playerDTO.idPlayer
+            }
+        })
     return oldPlayer;
 }
 

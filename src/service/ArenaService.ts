@@ -22,18 +22,22 @@ async function addArena(arenaDTO: typeof Arena)
         nameArena: arenaDTO.nameArena,
         location: arenaDTO.location,
         capacity: arenaDTO.capacity,
-        openingDate: arenaDTO.openingDate
+        openingDate: arenaDTO.openingDate,
+        createdAt: new Date(),
+        updatedAt: new Date()
     })
     return newArena;
 }
 
 async function updateArena(arenaDTO: typeof Arena)
 {
-    const oldArena = await ArenaModel.findByPk(arenaDTO.idArena);
-    oldArena.nameArena = arenaDTO.nameArena;
-    oldArena.location = arenaDTO.location;
-    oldArena.capacity = arenaDTO.capacity;
-    oldArena.updatedAt = new Date();
+    const oldArena = await ArenaModel.update(arenaDTO,
+        {
+            where:
+            {
+                idArena: arenaDTO.idArena
+            }
+        })
     return oldArena;
 }
 

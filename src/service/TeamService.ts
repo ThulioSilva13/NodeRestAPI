@@ -8,7 +8,7 @@ async function getAllTeams()
 
 }
 
-async function getTeamById(idTeam: number) 
+async function getTeamById(idTeam: Number) 
 {
     const team = await TeamModel.findByPk(idTeam);
     return team;
@@ -23,18 +23,22 @@ async function addTeam(teamDTO: typeof Team)
         nameTeam: teamDTO.nameTeam,
         logo: teamDTO.logo,
         championships: teamDTO.championships,
-        conference: teamDTO.conference
+        conference: teamDTO.conference,
+        createdAt: new Date(),
+        updatedAt: new Date()
     })
     return newTeam;
 }
 
 async function updateTeam(teamDTO: typeof Team)
 {
-    const oldTeam = await TeamModel.findByPk(teamDTO.idTeam);
-    oldTeam.nameTeam = teamDTO.nameTeam;
-    oldTeam.logo = teamDTO.logo;
-    oldTeam.championships = teamDTO.championships;
-    oldTeam.conference = teamDTO.conference
+    const oldTeam = await TeamModel.update(teamDTO,
+        {
+            where:
+            {
+                idTeam: teamDTO.idTeam
+            }
+        })
     return oldTeam;
 }
 

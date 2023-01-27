@@ -8,7 +8,7 @@ const playerController = Router();
 playerController.get('/players/getAll', (req: Request, res: Response, next: NextFunction) => 
 {
     
-    playerService.getAll()
+    playerService.getAllPlayers()
     .then((PlayerDTO: typeof Player) => 
     {
         res.status(StatusCodes.OK).send(PlayerDTO);
@@ -62,9 +62,9 @@ playerController.put('/players/update/:uuid', (req: Request<{player: typeof Play
     
 })
 
-playerController.delete('/players/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+playerController.delete('/players/delete/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
-    playerService.deletePlayer(req.body)
+    playerService.deletePlayer(req.params.uuid)
     .then((PlayerDTO: typeof Player) =>
     {
         res.status(StatusCodes.OK).send(PlayerDTO);
