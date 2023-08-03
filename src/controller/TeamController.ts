@@ -5,7 +5,7 @@ const Team = require('../interface/TeamInterface');
 const teamService = require('../service/TeamService');
 const teamController = Router();
 
-teamController.get('/teams/getAll', (req: Request, res: Response, next: NextFunction) => 
+teamController.get('/teams/getAllTeams', (req: Request, res: Response, next: NextFunction) =>
 {
     
     teamService.getAllTeams()
@@ -20,7 +20,22 @@ teamController.get('/teams/getAll', (req: Request, res: Response, next: NextFunc
 
 })
 
-teamController.get('/teams/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
+teamController.get('/teams/getAllTeamsByTitles', (req: Request, res: Response, next: NextFunction) =>
+{
+
+    teamService.getAllTeamsByTitles()
+    .then((TeamDTO: typeof Team) =>
+    {
+        res.status(StatusCodes.OK).send(TeamDTO);
+    })
+    .catch((error: Error) =>
+    {
+        console.log("nao foi possivel buscar as teams", error);
+    });
+
+})
+
+teamController.get('/teams/getTeamById/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
 {
     teamService.getTeamById(req.params.uuid)
     .then((TeamDTO: typeof Team) =>
@@ -34,7 +49,25 @@ teamController.get('/teams/get/:uuid', (req: Request<{uuid: number}>, res: Respo
 
 })
 
-teamController.post('/teams/add', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) => 
+
+teamController.get('/teams/getTeamsByConference/:conference', (req: Request<{conference: string}>, res: Response, next: NextFunction) =>
+{
+    teamService.getTeamsByConference(req.params.conference)
+    .then((TeamDTO: typeof Team) =>
+    {
+        res.status(StatusCodes.OK).send(TeamDTO);
+    })
+    .catch((error: Error) =>
+    {
+        console.log("Não foi possível buscar team", error);
+    })
+
+})
+
+
+
+
+teamController.post('/teams/addTeam', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) =>
 {
     teamService.addTeam(req.body)
     .then((TeamDTO: typeof Team) =>
@@ -48,7 +81,7 @@ teamController.post('/teams/add', (req: Request<{team: typeof Team}>, res: Respo
     
 })
 
-teamController.put('/teams/update/:uuid', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) =>
+teamController.put('/teams/updateTeam/:uuid', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) =>
 {
     teamService.updateTeam(req.body)
     .then((TeamDTO: typeof Team) => 
@@ -62,7 +95,7 @@ teamController.put('/teams/update/:uuid', (req: Request<{team: typeof Team}>, re
     
 })
 
-teamController.delete('/teams/delete/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+teamController.delete('/teams/deleteTeam/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
     teamService.deleteTeam(req.params.uuid)
     .then((TeamDTO: typeof Team) =>

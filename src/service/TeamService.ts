@@ -8,11 +8,39 @@ async function getAllTeams()
 
 }
 
-async function getTeamById(idTeam: Number) 
+async function getAllTeamsByTitles()
+{
+    const listTeams = await TeamModel.findAll({
+        order: [['championships', 'desc']]
+    });
+    return listTeams;
+
+}
+
+
+async function getTeamById(idTeam: number)
 {
     const team = await TeamModel.findByPk(idTeam);
     return team;
 
+}
+
+async function getTeamsByConference(conference: string)
+{
+    try
+    {
+        const teamByConferece = await TeamModel.findAll
+        ({
+            where: {
+                conference: conference,
+            },
+        });
+        return teamByConferece;
+    }
+    catch(error)
+    {
+        return("Não foi possível encontrar");
+    }
 }
 
 async function addTeam(teamDTO: typeof Team)
@@ -51,7 +79,9 @@ async function deleteTeam(idTeam: number)
 module.exports = 
 {
     getAllTeams,
+    getAllTeamsByTitles,
     getTeamById,
+    getTeamsByConference,
     addTeam,
     updateTeam,
     deleteTeam,

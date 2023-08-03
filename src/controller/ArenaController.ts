@@ -5,7 +5,7 @@ const Arena = require('../interface/ArenaInterface');
 const arenaService = require('../service/ArenaService');
 const arenaController = Router();
 
-arenaController.get('/arenas/getAll', (req: Request, res: Response, next: NextFunction) => 
+arenaController.get('/arenas/getAllArenas', (req: Request, res: Response, next: NextFunction) =>
 {
     
     arenaService.getAllArenas()
@@ -20,7 +20,7 @@ arenaController.get('/arenas/getAll', (req: Request, res: Response, next: NextFu
 
 })
 
-arenaController.get('/arenas/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
+arenaController.get('/arenas/getArenaById/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
 {
     arenaService.getArenaById(req.params.uuid)
     .then((ArenaDTO: typeof Arena) =>
@@ -34,7 +34,7 @@ arenaController.get('/arenas/get/:uuid', (req: Request<{uuid: number}>, res: Res
 
 })
 
-arenaController.post('/arenas/add', (req: Request<{arena: typeof Arena}>, res: Response, next: NextFunction) => 
+arenaController.post('/arenas/addArena', (req: Request<{arena: typeof Arena}>, res: Response, next: NextFunction) =>
 {
     arenaService.addArena(req.body)
     .then((ArenaDTO: typeof Arena) =>
@@ -48,7 +48,7 @@ arenaController.post('/arenas/add', (req: Request<{arena: typeof Arena}>, res: R
     
 })
 
-arenaController.put('/arenas/update/:uuid', (req: Request<{arena: typeof Arena}>, res: Response, next: NextFunction) =>
+arenaController.put('/arenas/updateArena/:uuid', (req: Request<{arena: typeof Arena}>, res: Response, next: NextFunction) =>
 {
     arenaService.updateArena(req.body)
     .then((ArenaDTO: typeof Arena) => 
@@ -62,7 +62,7 @@ arenaController.put('/arenas/update/:uuid', (req: Request<{arena: typeof Arena}>
     
 })
 
-arenaController.delete('/arenas/delete/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+arenaController.delete('/arenas/deleteArena/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
     arenaService.deleteArena(req.params.uuid)
     .then((ArenaDTO: typeof Arena) =>

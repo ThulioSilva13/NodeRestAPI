@@ -15,7 +15,7 @@ async function getPlayerById(idPlayer: number)
 
 }
 
-async function addPLayer(playerDTO: typeof Player)
+async function addPlayer(playerDTO: typeof Player)
 {
     const newPlayer = await PlayerModel.create
     ({
@@ -53,7 +53,7 @@ module.exports =
 {
     getAllPlayers,
     getPlayerById,
-    addPLayer,
+    addPlayer,
     updatePlayer,
     deletePlayer,
 } 

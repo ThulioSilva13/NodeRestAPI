@@ -5,7 +5,7 @@ const Player = require('../interface/PlayerInterface');
 const playerService = require('../service/PlayerService');
 const playerController = Router();
 
-playerController.get('/players/getAll', (req: Request, res: Response, next: NextFunction) => 
+playerController.get('/players/getAllPlayers', (req: Request, res: Response, next: NextFunction) =>
 {
     
     playerService.getAllPlayers()
@@ -20,7 +20,7 @@ playerController.get('/players/getAll', (req: Request, res: Response, next: Next
 
 })
 
-playerController.get('/players/get/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) => 
+playerController.get('/players/getPlayerById/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
 {
     playerService.getPlayerById(req.body)
     .then((PlayerDTO: typeof Player) =>
@@ -34,7 +34,7 @@ playerController.get('/players/get/:uuid', (req: Request<{uuid: number}>, res: R
 
 })
 
-playerController.post('/players/add', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) => 
+playerController.post('/players/addPlayer', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) =>
 {
     playerService.addPlayer(req.body)
     .then((PlayerDTO: typeof Player) =>
@@ -48,7 +48,7 @@ playerController.post('/players/add', (req: Request<{player: typeof Player}>, re
     
 })
 
-playerController.put('/players/update/:uuid', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) =>
+playerController.put('/players/updatePlayer/:uuid', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) =>
 {
     playerService.updatePlayer(req.body)
     .then((PlayerDTO: typeof Player) => 
@@ -62,7 +62,7 @@ playerController.put('/players/update/:uuid', (req: Request<{player: typeof Play
     
 })
 
-playerController.delete('/players/delete/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
+playerController.delete('/players/deletePlayer/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
     playerService.deletePlayer(req.params.uuid)
     .then((PlayerDTO: typeof Player) =>
