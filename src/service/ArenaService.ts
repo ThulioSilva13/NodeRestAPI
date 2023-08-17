@@ -8,6 +8,25 @@ async function getAllArenas()
 
 }
 
+async function getAllArenasByCapacity()
+{
+    const listArenas = await ArenaModel.findAll(
+        {
+            order: [['capacity', 'desc']]
+        }
+    );
+    return listArenas;
+
+}
+async function getAllArenasByOpeningDate()
+{
+    const listArenas = await ArenaModel.findAll({
+        order: [['openingDate', 'desc']]
+    });
+    return listArenas;
+
+}
+
 async function getArenaById(idArena: number) 
 {
     const arena = await ArenaModel.findByPk(idArena);
@@ -51,6 +70,8 @@ async function deleteArena(idArena: number)
 module.exports = 
 {
     getAllArenas,
+    getAllArenasByCapacity,
+    getAllArenasByOpeningDate,
     getArenaById,
     addArena,
     updateArena,

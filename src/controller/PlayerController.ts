@@ -1,5 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import {StatusCodes} from 'http-status-codes';
+import ResponseObj from "../Utils/ResponseObj";
+import responseObj from "../Utils/ResponseObj";
 
 const Player = require('../interface/PlayerInterface');
 const playerService = require('../service/PlayerService');
@@ -11,11 +13,11 @@ playerController.get('/players/getAllPlayers', (req: Request, res: Response, nex
     playerService.getAllPlayers()
     .then((PlayerDTO: typeof Player) => 
     {
-        res.status(StatusCodes.OK).send(PlayerDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(PlayerDTO, null, null))
     })
     .catch((error: Error) =>
     {
-        console.log("nao foi possivel buscar as players", error);
+        res.status(StatusCodes.OK).send(new ResponseObj(null, error.name, error.message))
     });
 
 })
@@ -25,6 +27,20 @@ playerController.get('/players/getPlayerById/:uuid', (req: Request<{uuid: number
     playerService.getPlayerById(req.body)
     .then((PlayerDTO: typeof Player) =>
     {
+        res.status(StatusCodes.OK).send(new ResponseObj(PlayerDTO, null, null));
+    })
+    .catch((error: Error) =>
+    {
+        res.status(StatusCodes.OK).send(new ResponseObj(null, error.name, error.message))
+    })
+
+})
+playerController.get('/players/getPlayerByTeam/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
+{
+    playerService.getPlayerByTeam(req.body)
+    .then((PlayerDTO: typeof Player) =>
+    {
+
         res.status(StatusCodes.OK).send(PlayerDTO);
     })
     .catch((error: Error) =>
@@ -48,7 +64,7 @@ playerController.post('/players/addPlayer', (req: Request<{player: typeof Player
     
 })
 
-playerController.put('/players/updatePlayer/:uuid', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) =>
+playerController.put('/players/updatePlayer', (req: Request<{player: typeof Player}>, res: Response, next: NextFunction) =>
 {
     playerService.updatePlayer(req.body)
     .then((PlayerDTO: typeof Player) => 

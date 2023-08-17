@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import {StatusCodes} from 'http-status-codes';
+import ResponseObj from "../Utils/ResponseObj";
 
 const Team = require('../interface/TeamInterface');
 const teamService = require('../service/TeamService');
@@ -40,11 +41,11 @@ teamController.get('/teams/getTeamById/:uuid', (req: Request<{uuid: number}>, re
     teamService.getTeamById(req.params.uuid)
     .then((TeamDTO: typeof Team) =>
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível buscar team", error);
+            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     })
 
 })
@@ -55,11 +56,11 @@ teamController.get('/teams/getTeamsByConference/:conference', (req: Request<{con
     teamService.getTeamsByConference(req.params.conference)
     .then((TeamDTO: typeof Team) =>
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível buscar team", error);
+            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca ", error.name, error.message));
     })
 
 })
@@ -72,11 +73,11 @@ teamController.post('/teams/addTeam', (req: Request<{team: typeof Team}>, res: R
     teamService.addTeam(req.body)
     .then((TeamDTO: typeof Team) =>
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível adicionar team", error);
+            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível adicionar time", error.name, error.message));
     })
     
 })
@@ -84,13 +85,13 @@ teamController.post('/teams/addTeam', (req: Request<{team: typeof Team}>, res: R
 teamController.put('/teams/updateTeam/:uuid', (req: Request<{team: typeof Team}>, res: Response, next: NextFunction) =>
 {
     teamService.updateTeam(req.body)
-    .then((TeamDTO: typeof Team) => 
+   .then((TeamDTO: typeof Team) =>
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível atualizar o team", error);
+            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível atualizar time", error.name, error.message));
     })
     
 })
@@ -98,13 +99,13 @@ teamController.put('/teams/updateTeam/:uuid', (req: Request<{team: typeof Team}>
 teamController.delete('/teams/deleteTeam/:uuid', (req: Request<{uuid: number}>, res:Response, next: NextFunction) =>
 {
     teamService.deleteTeam(req.params.uuid)
-    .then((TeamDTO: typeof Team) =>
+   .then((TeamDTO: typeof Team) =>
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível deletar team", error);
+            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível deletar time", error.name, error.message));
     })
 })
 

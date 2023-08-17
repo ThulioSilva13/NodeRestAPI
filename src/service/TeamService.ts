@@ -21,6 +21,10 @@ async function getAllTeamsByTitles()
 async function getTeamById(idTeam: number)
 {
     const team = await TeamModel.findByPk(idTeam);
+    if(team == null)
+    {
+        return "Não foi possível encontrar o time";
+    }
     return team;
 
 }

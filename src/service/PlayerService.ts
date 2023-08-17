@@ -14,6 +14,17 @@ async function getPlayerById(idPlayer: number)
     return player;
 
 }
+async function getPlayerByTeam(idTeam: number)
+{
+    const player = await PlayerModel.findAll
+        ({
+            where: {
+                idTeam: idTeam,
+            },
+        });
+    return player;
+
+}
 
 async function addPlayer(playerDTO: typeof Player)
 {
@@ -21,7 +32,7 @@ async function addPlayer(playerDTO: typeof Player)
     ({
         idTeam: playerDTO.idTeam,
         namePlayer: playerDTO.namePlayer,
-        number: playerDTO.location,
+        number: playerDTO.number,
         position: playerDTO.position,
         draft: playerDTO.draft,
         nationality: playerDTO.nationality,

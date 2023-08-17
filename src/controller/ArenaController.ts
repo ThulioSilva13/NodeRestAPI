@@ -19,6 +19,34 @@ arenaController.get('/arenas/getAllArenas', (req: Request, res: Response, next: 
     });
 
 })
+arenaController.get('/arenas/getAllArenasByCapacity', (req: Request, res: Response, next: NextFunction) =>
+{
+
+    arenaService.getAllArenasByCapacity()
+    .then((ArenaDTO: typeof Arena) =>
+    {
+        res.status(StatusCodes.OK).send(ArenaDTO);
+    })
+    .catch((error: Error) =>
+    {
+        console.log("nao foi possivel buscar as arenas", error);
+    });
+
+})
+arenaController.get('/arenas/getAllArenasByOpeningDate', (req: Request, res: Response, next: NextFunction) =>
+{
+
+    arenaService.getAllArenasByOpeningDate()
+    .then((ArenaDTO: typeof Arena) =>
+    {
+        res.status(StatusCodes.OK).send(ArenaDTO);
+    })
+    .catch((error: Error) =>
+    {
+        console.log("nao foi possivel buscar as arenas", error);
+    });
+
+})
 
 arenaController.get('/arenas/getArenaById/:uuid', (req: Request<{uuid: number}>, res: Response, next: NextFunction) =>
 {
