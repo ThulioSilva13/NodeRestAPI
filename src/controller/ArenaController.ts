@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import {StatusCodes} from 'http-status-codes';
+import ResponseObj from "../Utils/ResponseObj";
 
 const Arena = require('../interface/ArenaInterface');
 const arenaService = require('../service/ArenaService');
@@ -11,11 +12,11 @@ arenaController.get('/arenas/getAllArenas', (req: Request, res: Response, next: 
     arenaService.getAllArenas()
     .then((ArenaDTO: typeof Arena) => 
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("nao foi possivel buscar as arenas", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     });
 
 })
@@ -25,11 +26,11 @@ arenaController.get('/arenas/getAllArenasByCapacity', (req: Request, res: Respon
     arenaService.getAllArenasByCapacity()
     .then((ArenaDTO: typeof Arena) =>
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("nao foi possivel buscar as arenas", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     });
 
 })
@@ -39,11 +40,11 @@ arenaController.get('/arenas/getAllArenasByOpeningDate', (req: Request, res: Res
     arenaService.getAllArenasByOpeningDate()
     .then((ArenaDTO: typeof Arena) =>
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("nao foi possivel buscar as arenas", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     });
 
 })
@@ -53,11 +54,11 @@ arenaController.get('/arenas/getArenaById/:uuid', (req: Request<{uuid: number}>,
     arenaService.getArenaById(req.params.uuid)
     .then((ArenaDTO: typeof Arena) =>
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível buscar arena", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     })
 
 })
@@ -67,11 +68,11 @@ arenaController.post('/arenas/addArena', (req: Request<{arena: typeof Arena}>, r
     arenaService.addArena(req.body)
     .then((ArenaDTO: typeof Arena) =>
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível adicionar arena", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível adicionar Arena", error.name, error.message));
     })
     
 })
@@ -81,11 +82,11 @@ arenaController.put('/arenas/updateArena/:uuid', (req: Request<{arena: typeof Ar
     arenaService.updateArena(req.body)
     .then((ArenaDTO: typeof Arena) => 
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível atualizar a arena", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível atualizar Arena", error.name, error.message));
     })
     
 })
@@ -95,11 +96,11 @@ arenaController.delete('/arenas/deleteArena/:uuid', (req: Request<{uuid: number}
     arenaService.deleteArena(req.params.uuid)
     .then((ArenaDTO: typeof Arena) =>
     {
-        res.status(StatusCodes.OK).send(ArenaDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(ArenaDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("Não foi possível deletar arena", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível deletar Arena", error.name, error.message));
     })
 })
 

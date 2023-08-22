@@ -12,11 +12,11 @@ teamController.get('/teams/getAllTeams', (req: Request, res: Response, next: Nex
     teamService.getAllTeams()
     .then((TeamDTO: typeof Team) => 
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("nao foi possivel buscar as teams", error);
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     });
 
 })
@@ -27,11 +27,11 @@ teamController.get('/teams/getAllTeamsByTitles', (req: Request, res: Response, n
     teamService.getAllTeamsByTitles()
     .then((TeamDTO: typeof Team) =>
     {
-        res.status(StatusCodes.OK).send(TeamDTO);
+        res.status(StatusCodes.OK).send(new ResponseObj(TeamDTO, null, null));
     })
     .catch((error: Error) =>
     {
-        console.log("nao foi possivel buscar as teams", error);
+       res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     });
 
 })
@@ -45,7 +45,7 @@ teamController.get('/teams/getTeamById/:uuid', (req: Request<{uuid: number}>, re
     })
     .catch((error: Error) =>
     {
-            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca", error.name, error.message));
     })
 
 })
@@ -60,7 +60,7 @@ teamController.get('/teams/getTeamsByConference/:conference', (req: Request<{con
     })
     .catch((error: Error) =>
     {
-            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca ", error.name, error.message));
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível realizar busca ", error.name, error.message));
     })
 
 })
@@ -77,7 +77,7 @@ teamController.post('/teams/addTeam', (req: Request<{team: typeof Team}>, res: R
     })
     .catch((error: Error) =>
     {
-            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível adicionar time", error.name, error.message));
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível adicionar time", error.name, error.message));
     })
     
 })
@@ -91,7 +91,7 @@ teamController.put('/teams/updateTeam/:uuid', (req: Request<{team: typeof Team}>
     })
     .catch((error: Error) =>
     {
-            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível atualizar time", error.name, error.message));
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível atualizar time", error.name, error.message));
     })
     
 })
@@ -105,7 +105,7 @@ teamController.delete('/teams/deleteTeam/:uuid', (req: Request<{uuid: number}>, 
     })
     .catch((error: Error) =>
     {
-            res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível deletar time", error.name, error.message));
+        res.status(StatusCodes.OK).send(new ResponseObj("Não foi possível deletar time", error.name, error.message));
     })
 })
 
