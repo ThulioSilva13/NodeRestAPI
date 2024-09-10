@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const database = require('./database');
 
-const TeamModel = database.define('TblTeam',
+const InformativoModel = database.define('TblInformativo',
 {
-    idTeam: 
+    idInformativo: 
     {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,35 +11,29 @@ const TeamModel = database.define('TblTeam',
         primaryKey: true
     },
 
-    idArena: 
+    titulo: 
     {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
-    nameTeam:
+    conteudo:
     {
         type: Sequelize.STRING,
         allowNull: false
     },
 
-    logo:
+    imagem:
     {
         type: Sequelize.STRING,
         allowNull: false
     },
 
-    championships: 
+    dataPublicacao: 
     {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-
-    conference:
-    {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         allowNull: false
     }
 });
 
-module.exports = TeamModel;
+module.exports = InformativoModel;

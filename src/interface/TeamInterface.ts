@@ -1,10 +1,10 @@
-interface Team
+interface Informativo
 {
-    idTeam: number;
-    idArena: number;
-    nameTeam: string;
+    idInformativo: number;
+    idUser: number;
+    nameInformativo: string;
     logo: string;
     championships: number;
     conference: string;
 }
-export default Team;
+export default Informativo;

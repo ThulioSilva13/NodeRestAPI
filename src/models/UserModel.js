@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const database = require('./database');
 
-const ArenaModel = database.define('TblArena',
+const UserModel = database.define('TblUser',
 {
-    idArena: 
+    idUser: 
     {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,29 +11,39 @@ const ArenaModel = database.define('TblArena',
         primaryKey: true
     },
 
-    nameArena:
+    nameUser:
     {
         type: Sequelize.STRING,
         allowNull: false
     },
 
-    location:
+    email:
     {
         type: Sequelize.STRING,
         allowNull: false
     },
 
-    capacity: 
+    senha: 
     {
-        type: Sequelize.DOUBLE,
+        type: Sequelize.STRING,
         allowNull: false
     },
 
-    openingDate:
+    idMood: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+
+    dataNascimento:
     {
         type: Sequelize.DATE,
         allowNull: false
-    }
+    },
+    nivelAnsiedade:
+    {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
 });
 
-module.exports = ArenaModel;
+module.exports = UserModel;

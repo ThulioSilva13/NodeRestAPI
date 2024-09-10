@@ -1,9 +1,9 @@
-interface Arena
+interface User
 {
-    idArena: number;
-    nameArena: string;
+    idUser: number;
+    nameUser: string;
     location: string;
     capacity: number;
     openingDate: Date;
 }
-export default Arena;
+export default User;
